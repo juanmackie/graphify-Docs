@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="170" viewBox="0 0 980 170" font-family="system-ui, sans-serif">
+  <defs>
+    <style>
+      .box { fill: #161b22; stroke: #2d3748; rx: 10; }
+      .txt { fill: #e6edf3; font-size: 13px; text-anchor: middle; }
+      .sub { fill: #9aa7b8; font-size: 11px; text-anchor: middle; }
+      .arrow { stroke: #4f9cf9; stroke-width: 2; fill: none; }
+      .hl { fill: #4f9cf9; font-weight: 700; }
+    </style>
+  </defs>
+  <rect width="980" height="170" fill="#0d1117"/>
+
+  <rect class="box" x="10" y="45" width="140" height="80"/>
+  <text class="txt hl" x="80" y="80">Upload</text>
+  <text class="sub" x="80" y="100">PDF · DOCX · TXT</text>
+
+  <rect class="box" x="180" y="45" width="150" height="80"/>
+  <text class="txt hl" x="255" y="80">Parse + Chunk</text>
+  <text class="sub" x="255" y="100">pypdf · python-docx</text>
+
+  <rect class="box" x="360" y="45" width="170" height="80"/>
+  <text class="txt hl" x="445" y="80">Extract</text>
+  <text class="sub" x="445" y="98">LLM entities + relations</text>
+  <text class="sub" x="445" y="114">YAKE keywords + co-occurrence</text>
+
+  <rect class="box" x="560" y="45" width="140" height="80"/>
+  <text class="txt hl" x="630" y="80">Merge + Cluster</text>
+  <text class="sub" x="630" y="100">dedup · Louvain</text>
+
+  <rect class="box" x="730" y="45" width="120" height="80"/>
+  <text class="txt hl" x="790" y="80">Graph view</text>
+  <text class="sub" x="790" y="100">interactive</text>
+
+  <rect class="box" x="862" y="45" width="108" height="80"/>
+  <text class="txt hl" x="916" y="80">Export</text>
+  <text class="sub" x="916" y="100">HTML · MD · CSV</text>
+
+  <path class="arrow" d="M152 85 H176"/>
+  <path class="arrow" d="M332 85 H356"/>
+  <path class="arrow" d="M532 85 H556"/>
+  <path class="arrow" d="M702 85 H726"/>
+  <path class="arrow" d="M852 85 H858"/>
+</svg>

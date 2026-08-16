@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+frontend/dist/
+
+# App data (uploads + sqlite index + generated graphs)
+data/
+
+# Env / secrets
+.env
+
+# Misc
+*.log
+.DS_Store
+Thumbs.db
