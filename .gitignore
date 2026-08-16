@@ -17,6 +17,14 @@ data/
 # Env / secrets
 .env
 
+# Agent/session and local planning noise
+.pi/
+.pi-subagents/
+PLAN.md
+*.local.md
+settings.local.json
+*production-ready-vibe-coding-rules*.md
+
 # Misc
 *.log
 .DS_Store

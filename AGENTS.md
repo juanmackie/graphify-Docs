@@ -83,6 +83,7 @@ When the user requests a durable behavior change, record it here or in the relev
 Strip duplicated logic, redundant abstractions, and overlapping responsibilities. The target is parts that do the same job as another part, or parts that exist to manage other unnecessary parts. A part that doesn't exist cannot fail — but a missing capability always fails the user. Standard/existing libraries are ALWAYS better then custom solutions 
 - Optimizations must be evidence-based: measure stage timings before and after
 - Keep the LLM optional — the app must always run in statistical-only mode without an API key
+- Public-repository hygiene — never track `.env`, `.pi/`, `.pi-subagents/`, `PLAN.md`, local settings, or generated build artifacts; review tracked files before publishing
 
 ## Child DOX Index
 
