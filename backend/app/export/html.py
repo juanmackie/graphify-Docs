@@ -650,6 +650,11 @@ def render_html_export(graph: dict[str, Any]) -> str:
     """Render a self-contained interactive HTML page for *graph*."""
     title = graph.get("document", {}).get("name", "Document")
     graph_json = json.dumps(graph, ensure_ascii=False, separators=(",", ":"))
+    # The JSON lands inside a <script> block. Node names, snippets, and evidence
+    # come from user documents, so a literal "</" (e.g. "</script>") would
+    # terminate the script element early. Escaping "<" as \u003c is equivalent
+    # for both the JSON literal and the JS engine that evaluates it.
+    graph_json = graph_json.replace("<", "\\u003c")
     return (
         _TEMPLATE.replace("__TITLE__", _escape_html(title))
         .replace("__GRAPH_JSON__", graph_json)

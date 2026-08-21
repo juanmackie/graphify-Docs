@@ -148,8 +148,12 @@ def reprocess(doc_id: str) -> dict:
             status_code=409,
             detail="A job for this document is already running.",
         )
+    previous = {key: record[key] for key in ("status", "progress", "error", "progress_detail")}
     store.update(doc_id, status="queued", progress=0.0, error=None, progress_detail=None)
     if not jobs.start(doc_id):
+        # Another thread started a job first; undo the reset so the doc
+        # doesn't sit in `queued` with no worker attached.
+        store.update(doc_id, **previous)
         raise HTTPException(
             status_code=409,
             detail="A job for this document is already running.",

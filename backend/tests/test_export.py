@@ -60,6 +60,21 @@ def test_html_export_escapes_title():
     assert "<h1 title=\"A <script>" not in html
 
 
+def test_html_export_escapes_embedded_json():
+    # Document-derived node/snippet text is embedded as raw JSON inside the
+    # page's <script> block — it must not be able to close that element.
+    payload = '</script><script>alert(1)</script>'
+    graph = {
+        "document": {"name": "Doc"},
+        "nodes": [{"id": "n_x", "name": payload, "type": "concept", "snippet": payload,
+                   "degree": 0, "community": 0, "sources": [], "count": 1}],
+        "links": [],
+    }
+    html = render_html_export(graph)
+    assert payload not in html  # raw </script> sequence cannot appear from data
+    assert "\\u003c/script" in html
+
+
 def test_markdown_report_content():
     md = render_markdown_report(GRAPH)
     assert md.startswith("# My Report.pdf")

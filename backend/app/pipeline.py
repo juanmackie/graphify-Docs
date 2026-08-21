@@ -122,10 +122,11 @@ def process_document(doc_id: str) -> None:
     )
 
     graph["document"]["stats"]["pipeline_seconds"] = round(time.perf_counter() - pipeline_started, 3)
-    store.save_graph(doc_id, graph)
     # Guard: the document may have been deleted while the job was running.
+    # Check before writing — saving into the deleted doc dir would raise.
     if store.get(doc_id) is None:
         return
+    store.save_graph(doc_id, graph)
     store.save_meta(
         doc_id,
         {

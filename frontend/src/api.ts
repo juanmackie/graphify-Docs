@@ -54,7 +54,7 @@ export async function listDocuments(): Promise<DocumentRecord[]> {
 export async function uploadDocument(
   file: File,
   mode: 'fast' | 'balanced' | 'full' = 'balanced',
-): Promise<{ doc_id: string; job_id: string }> {
+): Promise<{ doc_id: string; name: string }> {
   const form = new FormData()
   form.append('file', file)
   form.append('mode', mode)
