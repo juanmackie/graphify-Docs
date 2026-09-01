@@ -22,6 +22,7 @@ local-first; no DB servers, no auth.
 - **Pipeline** (`pipeline.py`): parse → chunk → select → LLM extraction (skipped without a key) → statistical (always runs) → merge → graph build. Records per-stage seconds (`parsing_seconds`, `chunking_seconds`, `statistical_seconds`, `llm_seconds`, `pipeline_seconds` + LLM metrics) into `graph.document.stats` and `stats_json` on completion.
 - **Jobs**: background threads, in-process. A server restart marks non-terminal docs `error` ("Interrupted by server restart"); recovery is `POST /api/documents/{id}/reprocess` from the saved source file (RE-RUN in the UI).
 - **API surface**: `/api/health`, `/api/config`, `/api/documents` (list/upload/delete), `/api/documents/{id}/status|graph|reprocess`, `/api/documents/{id}/export/{html|report|csv}`. Production serves `frontend/dist` at `/`.
+- **Browser boundary**: CORS permits only the Vite dev origins `http://localhost:5173` and `http://127.0.0.1:5173`; production uses same-origin requests.
 - **Pinned deps**: `networkx>=3.0,<3.5` + `python-louvain==0.16` (compatibility); PDF parsing uses `pypdf`; LLM uses the `openai` SDK against any OpenAI-compatible endpoint.
 - **Deliberately disabled**: micro-batching (combining chunks per LLM call) — attribution risk on malformed JSON; see `benchmarks/microbatch_eval.py` for the trade-off estimate.
 - **Graph caps**: `MAX_GRAPH_NODES` (600) / `MAX_GRAPH_EDGES` (2500) keep large documents responsive.
@@ -35,7 +36,7 @@ local-first; no DB servers, no auth.
 
 ## Verification
 
-- `cd backend && uv run pytest -q` — 86 tests: parsing, chunking, extraction, merging, graph building, API, exports (LLM mocked, offline).
+- `cd backend && uv run pytest -q` — 90 tests: parsing, chunking, extraction, merging, graph building, API, exports (LLM mocked, offline).
 - Manual E2E: `uvicorn app.main:app` + `npm run dev` (frontend); upload a real PDF and confirm the graph renders.
 
 ## Child DOX Index

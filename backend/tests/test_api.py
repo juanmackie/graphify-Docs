@@ -48,13 +48,21 @@ def test_upload_empty_file():
     assert res.status_code == 400
 
 
-def test_upload_legacy_doc_rejected():
+def test_upload_unsupported_legacy_doc():
     res = client.post(
         "/api/documents",
         files={"file": ("old.doc", b"\xd0\xcf\x11\xe0 binary", "application/msword")},
     )
     assert res.status_code == 400
-    assert "docx" in res.json()["detail"]
+    assert "Unsupported file type" in res.json()["detail"]
+
+
+def test_cors_allows_local_frontend_only():
+    allowed = client.get("/api/health", headers={"Origin": "http://localhost:5173"})
+    assert allowed.headers["access-control-allow-origin"] == "http://localhost:5173"
+
+    denied = client.get("/api/health", headers={"Origin": "https://untrusted.example"})
+    assert "access-control-allow-origin" not in denied.headers
 
 
 def test_end_to_end_txt(sample_txt: Path):

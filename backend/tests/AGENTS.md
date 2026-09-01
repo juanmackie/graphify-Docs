@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Pytest verification for the backend. 86 tests covering parsing, chunking, extraction (mocked LLM), merging, graph building, API, and exports.
+Pytest verification for the backend. 90 tests covering parsing, chunking, extraction (mocked LLM), merging, graph building, API, and exports.
 
 ## Ownership
 
@@ -20,6 +20,7 @@ Pytest verification for the backend. 86 tests covering parsing, chunking, extrac
 - Add a test for every new backend behavior; bug fixes get a regression test first.
 - Never relax the conftest isolation to make a test pass.
 - Full suite must be green before a DOX closeout: `cd backend && uv run pytest -q`.
+- API boundary tests must keep local-dev CORS allowlisted and reject unrelated origins.
 
 ## Verification
 

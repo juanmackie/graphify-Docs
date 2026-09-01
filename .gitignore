@@ -23,7 +23,8 @@ data/
 PLAN.md
 *.local.md
 settings.local.json
-*production-ready-vibe-coding-rules*.md
+*vibe-coding-rules*.md
+*Vibe Coding Rules*.md
 
 # Misc
 *.log

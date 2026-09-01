@@ -15,9 +15,17 @@ from .store import store
 
 app = FastAPI(title="DocGraph API", version="0.1.0")
 
+# The dev server is the only cross-origin client. Production serves the SPA
+# from this process, so an allowlist keeps unrelated local websites from
+# issuing API requests to the user's document store.
+LOCAL_FRONTEND_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=LOCAL_FRONTEND_ORIGINS,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -82,12 +90,6 @@ async def upload(
             detail=f"Unsupported file type '{ext or '?'}'. "
             f"Supported: {', '.join(sorted(settings.allowed_extensions))}",
         )
-    if ext == ".doc":
-        raise HTTPException(
-            status_code=400,
-            detail="Legacy .doc files aren't supported — save the file as .docx or .txt and retry.",
-        )
-
     extraction_mode = (mode or settings.extraction_mode).strip().lower()
     if extraction_mode not in {"fast", "balanced", "full"}:
         raise HTTPException(status_code=400, detail="Extraction mode must be fast, balanced, or full.")
